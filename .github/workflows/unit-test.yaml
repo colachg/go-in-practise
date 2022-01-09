@@ -9,7 +9,7 @@ on:
 
 jobs:
   golang-test:
-    name: run tests
+    name: run unit tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
