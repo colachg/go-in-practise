@@ -1,11 +1,11 @@
-package structure
+package linkedlist
 
 import "fmt"
 
 // Node Class
 type Node struct {
-	property int
-	nextNode *Node
+	Property int
+	NextNode *Node
 }
 
 // LinkedList Class
@@ -13,8 +13,8 @@ type LinkedList struct {
 	Head *Node
 }
 
-// NewLinkedList create a linkedlist from input
-func NewLinkedList(input []int) *LinkedList {
+// ArrayToLinkedList create a linkedlist from input
+func ArrayToLinkedList(input []int) *LinkedList {
 	if len(input) == 0 {
 		return nil
 	}
@@ -22,18 +22,18 @@ func NewLinkedList(input []int) *LinkedList {
 	head := &Node{}
 	tmp := head
 	for _, num := range input {
-		tmp.nextNode = &Node{property: num}
-		tmp = tmp.nextNode
+		tmp.NextNode = &Node{Property: num}
+		tmp = tmp.NextNode
 	}
-	return &LinkedList{head.nextNode}
+	return &LinkedList{head.NextNode}
 }
 
 // ToArray translate a linkedlist to an array
 func (linkedList *LinkedList) ToArray() *[]int {
 	if linkedList != nil && linkedList.Head != nil {
 		var a []int
-		for i := linkedList.Head; i != nil; i = i.nextNode {
-			a = append(a, i.property)
+		for i := linkedList.Head; i != nil; i = i.NextNode {
+			a = append(a, i.Property)
 		}
 		return &a
 	}
@@ -43,11 +43,11 @@ func (linkedList *LinkedList) ToArray() *[]int {
 // AddToHead add node to the Head of linkedlist
 func (linkedList *LinkedList) AddToHead(property int) {
 	node := &Node{}
-	node.property = property
-	node.nextNode = nil
+	node.Property = property
+	node.NextNode = nil
 
 	if linkedList.Head != nil {
-		node.nextNode = linkedList.Head
+		node.NextNode = linkedList.Head
 	}
 	linkedList.Head = node
 }
@@ -55,11 +55,11 @@ func (linkedList *LinkedList) AddToHead(property int) {
 //IterateList method iterates over LinkedList
 func (linkedList *LinkedList) IterateList() {
 	var node *Node
-	for node = linkedList.Head; node != nil; node = node.nextNode {
+	for node = linkedList.Head; node != nil; node = node.NextNode {
 		if node == nil {
 			fmt.Print("nil")
 		} else {
-			fmt.Print(node.property, "->")
+			fmt.Print(node.Property, "->")
 		}
 	}
 }
@@ -67,8 +67,8 @@ func (linkedList *LinkedList) IterateList() {
 // LastNode returns the end node of the linked list
 func (linkedList *LinkedList) LastNode() *Node {
 	var lastNode *Node
-	for node := linkedList.Head; node != nil; node = node.nextNode {
-		if node.nextNode == nil {
+	for node := linkedList.Head; node != nil; node = node.NextNode {
+		if node.NextNode == nil {
 			lastNode = node
 		}
 	}
@@ -78,22 +78,22 @@ func (linkedList *LinkedList) LastNode() *Node {
 // AddToEnd adds a property to the end of the linked list
 func (linkedList LinkedList) AddToEnd(property int) {
 	var node = &Node{}
-	node.property = property
-	node.nextNode = nil
+	node.Property = property
+	node.NextNode = nil
 
 	var lastNode *Node
 	lastNode = linkedList.LastNode()
 
 	if lastNode != nil {
-		lastNode.nextNode = node
+		lastNode.NextNode = node
 	}
 }
 
 //NodeWithValue method returns Node given parameter property
 func (linkedList LinkedList) NodeWithValue(property int) *Node {
 	var nodeWithValue *Node
-	for node := linkedList.Head; node != nil; node = node.nextNode {
-		if node.property == property {
+	for node := linkedList.Head; node != nil; node = node.NextNode {
+		if node.Property == property {
 			nodeWithValue = node
 			break
 		}
@@ -104,12 +104,12 @@ func (linkedList LinkedList) NodeWithValue(property int) *Node {
 //AddAfter method adds a node with nodeProperty after node with property
 func (linkedList LinkedList) AddAfter(nodeProperty, property int) {
 	node := &Node{}
-	node.property = property
-	node.nextNode = nil
+	node.Property = property
+	node.NextNode = nil
 
 	nodeWithValue := linkedList.NodeWithValue(nodeProperty)
 	if nodeWithValue != nil {
-		node.nextNode = nodeWithValue.nextNode
-		nodeWithValue.nextNode = node
+		node.NextNode = nodeWithValue.NextNode
+		nodeWithValue.NextNode = node
 	}
 }

@@ -1,4 +1,4 @@
-package structure
+package linkedlist
 
 import (
 	"reflect"
@@ -7,7 +7,7 @@ import (
 
 func TestLinkedList(t *testing.T) {
 
-	t.Run("Test function TestNewLinkedList()", func(t *testing.T) {
+	t.Run("Test function ArrayToLinkedList()", func(t *testing.T) {
 		tests := []struct {
 			name string
 			args []int
@@ -17,12 +17,12 @@ func TestLinkedList(t *testing.T) {
 				name: "Test normal case",
 				args: []int{1, 2, 2},
 				want: &LinkedList{Head: &Node{
-					property: 1,
-					nextNode: &Node{
-						property: 2,
-						nextNode: &Node{
-							property: 2,
-							nextNode: nil,
+					Property: 1,
+					NextNode: &Node{
+						Property: 2,
+						NextNode: &Node{
+							Property: 2,
+							NextNode: nil,
 						},
 					},
 				}},
@@ -35,8 +35,8 @@ func TestLinkedList(t *testing.T) {
 		}
 		for _, tt := range tests {
 			t.Run(tt.name, func(t *testing.T) {
-				if got := NewLinkedList(tt.args); !reflect.DeepEqual(got, tt.want) {
-					t.Errorf("NewLinkedList() = %v, want %v", got, tt.want)
+				if got := ArrayToLinkedList(tt.args); !reflect.DeepEqual(got, tt.want) {
+					t.Errorf("ArrayToLinkedList() = %v, want %v", got, tt.want)
 				}
 			})
 		}
@@ -49,7 +49,7 @@ func TestLinkedList(t *testing.T) {
 		}{
 			{name: "Add property 2", property: 2, want: &LinkedList{
 				Head: &Node{
-					property: 2, nextNode: nil}}},
+					Property: 2, NextNode: nil}}},
 		}
 		for _, tt := range tests {
 			tt.want.AddToHead(tt.property)
@@ -68,12 +68,12 @@ func TestLinkedList(t *testing.T) {
 		}{
 			{
 				name: "Test case 1 - normal", args: &LinkedList{Head: &Node{
-					property: 0,
-					nextNode: &Node{
-						property: 1,
-						nextNode: &Node{
-							property: 2,
-							nextNode: nil,
+					Property: 0,
+					NextNode: &Node{
+						Property: 1,
+						NextNode: &Node{
+							Property: 2,
+							NextNode: nil,
 						},
 					},
 				}}, want: &[]int{0, 1, 2},
@@ -90,7 +90,7 @@ func TestLinkedList(t *testing.T) {
 			},
 			{
 				name: "Test case 4 - normal",
-				args: &LinkedList{Head: &Node{property: 0}},
+				args: &LinkedList{Head: &Node{Property: 0}},
 				want: &[]int{0},
 			},
 		}
