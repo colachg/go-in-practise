@@ -11,22 +11,21 @@ func TestLinkedList(t *testing.T) {
 		tests := []struct {
 			name string
 			args []int
-			want *LinkedList
+			want *ListNode
 		}{
 			{
 				name: "Test normal case",
 				args: []int{1, 2, 2},
-				want: &LinkedList{Head: &Node{
-					Property: 1,
-					NextNode: &Node{
-						Property: 2,
-						NextNode: &Node{
-							Property: 2,
-							NextNode: nil,
+				want: &ListNode{
+					Val: 1,
+					Next: &ListNode{
+						Val: 2,
+						Next: &ListNode{
+							Val:  2,
+							Next: nil,
 						},
 					},
 				}},
-			},
 			{
 				name: "Test nil case",
 				args: []int{},
@@ -45,11 +44,15 @@ func TestLinkedList(t *testing.T) {
 		tests := []struct {
 			name     string
 			property int
-			want     *LinkedList
+			want     *ListNode
 		}{
-			{name: "Add property 2", property: 2, want: &LinkedList{
-				Head: &Node{
-					Property: 2, NextNode: nil}}},
+			{
+				name:     "Add property 2",
+				property: 2,
+				want: &ListNode{
+					Val:  2,
+					Next: nil,
+				}},
 		}
 		for _, tt := range tests {
 			tt.want.AddToHead(tt.property)
@@ -63,20 +66,19 @@ func TestLinkedList(t *testing.T) {
 	t.Run("Test method ToArray()", func(t *testing.T) {
 		tests := []struct {
 			name string
-			args *LinkedList
+			args *ListNode
 			want *[]int
 		}{
 			{
-				name: "Test case 1 - normal", args: &LinkedList{Head: &Node{
-					Property: 0,
-					NextNode: &Node{
-						Property: 1,
-						NextNode: &Node{
-							Property: 2,
-							NextNode: nil,
+				name: "Test case 1 - normal", args: &ListNode{
+					Val: 0,
+					Next: &ListNode{
+						Val: 1,
+						Next: &ListNode{
+							Val:  2,
+							Next: nil,
 						},
-					},
-				}}, want: &[]int{0, 1, 2},
+					}}, want: &[]int{0, 1, 2},
 			},
 			{
 				name: "Test case 2 - nil",
@@ -85,18 +87,18 @@ func TestLinkedList(t *testing.T) {
 			},
 			{
 				name: "Test case 3 - nil",
-				args: &LinkedList{},
-				want: nil,
+				args: &ListNode{},
+				want: &[]int{0},
 			},
 			{
 				name: "Test case 4 - normal",
-				args: &LinkedList{Head: &Node{Property: 0}},
+				args: &ListNode{Val: 0},
 				want: &[]int{0},
 			},
 		}
 		for _, tt := range tests {
 			if got := tt.args.ToArray(); !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("got: %v, want: %v", got, tt.want)
+				t.Errorf("%s, got: %v, want: %v", tt.name, got, tt.want)
 			}
 		}
 

@@ -2,38 +2,33 @@ package linkedlist
 
 import "fmt"
 
-// Node Class
-type Node struct {
-	Property int
-	NextNode *Node
-}
-
-// LinkedList Class
-type LinkedList struct {
-	Head *Node
+// ListNode Class
+type ListNode struct {
+	Val  int
+	Next *ListNode
 }
 
 // ArrayToLinkedList create a linkedlist from input
-func ArrayToLinkedList(input []int) *LinkedList {
+func ArrayToLinkedList(input []int) *ListNode {
 	if len(input) == 0 {
 		return nil
 	}
 	// here are two pointers
-	head := &Node{}
+	head := &ListNode{}
 	tmp := head
 	for _, num := range input {
-		tmp.NextNode = &Node{Property: num}
-		tmp = tmp.NextNode
+		tmp.Next = &ListNode{Val: num}
+		tmp = tmp.Next
 	}
-	return &LinkedList{head.NextNode}
+	return head.Next
 }
 
 // ToArray translate a linkedlist to an array
-func (linkedList *LinkedList) ToArray() *[]int {
-	if linkedList != nil && linkedList.Head != nil {
+func (listNode *ListNode) ToArray() *[]int {
+	if listNode != nil {
 		var a []int
-		for i := linkedList.Head; i != nil; i = i.NextNode {
-			a = append(a, i.Property)
+		for i := listNode; i != nil; i = i.Next {
+			a = append(a, i.Val)
 		}
 		return &a
 	}
@@ -41,34 +36,34 @@ func (linkedList *LinkedList) ToArray() *[]int {
 }
 
 // AddToHead add node to the Head of linkedlist
-func (linkedList *LinkedList) AddToHead(property int) {
-	node := &Node{}
-	node.Property = property
-	node.NextNode = nil
+func (listNode *ListNode) AddToHead(property int) {
+	node := &ListNode{}
+	node.Val = property
+	node.Next = nil
 
-	if linkedList.Head != nil {
-		node.NextNode = linkedList.Head
+	if listNode != nil {
+		node.Next = listNode
 	}
-	linkedList.Head = node
+	listNode = node
 }
 
 //IterateList method iterates over LinkedList
-func (linkedList *LinkedList) IterateList() {
-	var node *Node
-	for node = linkedList.Head; node != nil; node = node.NextNode {
+func (listNode *ListNode) IterateList() {
+	var node *ListNode
+	for node = listNode; node != nil; node = node.Next {
 		if node == nil {
 			fmt.Print("nil")
 		} else {
-			fmt.Print(node.Property, "->")
+			fmt.Print(node.Val, "->")
 		}
 	}
 }
 
 // LastNode returns the end node of the linked list
-func (linkedList *LinkedList) LastNode() *Node {
-	var lastNode *Node
-	for node := linkedList.Head; node != nil; node = node.NextNode {
-		if node.NextNode == nil {
+func (listNode *ListNode) LastNode() *ListNode {
+	var lastNode *ListNode
+	for node := listNode; node != nil; node = node.Next {
+		if node.Next == nil {
 			lastNode = node
 		}
 	}
@@ -76,24 +71,24 @@ func (linkedList *LinkedList) LastNode() *Node {
 }
 
 // AddToEnd adds a property to the end of the linked list
-func (linkedList LinkedList) AddToEnd(property int) {
-	var node = &Node{}
-	node.Property = property
-	node.NextNode = nil
+func (listNode *ListNode) AddToEnd(property int) {
+	var node = &ListNode{}
+	node.Val = property
+	node.Next = nil
 
-	var lastNode *Node
-	lastNode = linkedList.LastNode()
+	var lastNode *ListNode
+	lastNode = listNode.LastNode()
 
 	if lastNode != nil {
-		lastNode.NextNode = node
+		lastNode.Next = node
 	}
 }
 
-//NodeWithValue method returns Node given parameter property
-func (linkedList LinkedList) NodeWithValue(property int) *Node {
-	var nodeWithValue *Node
-	for node := linkedList.Head; node != nil; node = node.NextNode {
-		if node.Property == property {
+//NodeWithValue method returns ListNode given parameter property
+func (listNode *ListNode) NodeWithValue(property int) *ListNode {
+	var nodeWithValue *ListNode
+	for node := listNode; node != nil; node = node.Next {
+		if node.Val == property {
 			nodeWithValue = node
 			break
 		}
@@ -102,14 +97,14 @@ func (linkedList LinkedList) NodeWithValue(property int) *Node {
 }
 
 //AddAfter method adds a node with nodeProperty after node with property
-func (linkedList LinkedList) AddAfter(nodeProperty, property int) {
-	node := &Node{}
-	node.Property = property
-	node.NextNode = nil
+func (listNode *ListNode) AddAfter(nodeProperty, property int) {
+	node := &ListNode{}
+	node.Val = property
+	node.Next = nil
 
-	nodeWithValue := linkedList.NodeWithValue(nodeProperty)
+	nodeWithValue := listNode.NodeWithValue(nodeProperty)
 	if nodeWithValue != nil {
-		node.NextNode = nodeWithValue.NextNode
-		nodeWithValue.NextNode = node
+		node.Next = nodeWithValue.Next
+		nodeWithValue.Next = node
 	}
 }
