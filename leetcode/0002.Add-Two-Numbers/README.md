@@ -1,53 +1,26 @@
-You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order, and each of their nodes contains a single digit. Add the two numbers and return the sum as a linked list.
+### Problem  
+https://leetcode.com/problems/add-two-numbers/
 
-You may assume the two numbers do not contain any leading zero, except the number 0 itself.
-
-
-
-Example 1:
-
-2->4->3
-5->6->4
 ---
-7->0->8
-
-Input: l1 = [2,4,3], l2 = [5,6,4]
-Output: [7,0,8]
-Explanation: 342 + 465 = 807.
-
-Example 2:
-
-Input: l1 = [0], l2 = [0]
-Output: [0]
-Example 3:
-
-Input: l1 = [9,9,9,9,9,9,9], l2 = [9,9,9,9]
-Output: [8,9,9,9,0,0,0,1]
-
-
-Constraints:
-
-The number of nodes in each linked list is in the range [1, 100].
-0 <= Node.val <= 9
-It is guaranteed that the list represents a number that does not have leading zeros.
----
-# Tips 
+### Tips 
 
 When parsing linkedlist data structure, (for me) it's recommended to init an empty head node.The key operation to link
 lists is the two pointers.Let's take this as a example:  
 
-```golang
-func ArrayToLinkedList(input []int) *LinkedList {
+```go
+package linkedlist
+// ArrayToLinkedList create a linkedlist from input
+func ArrayToLinkedList(input []int) *ListNode {
 	if len(input) == 0 {
 		return nil
 	}
 	// here are two pointers
-	head := &Node{} // pointer 1 holds the head node.
-	tmp := head // pointer 2 links other nodes.
+	head := &ListNode{}
+	tmp := head
 	for _, num := range input {
-		tmp.NextNode = &Node{Property: num}
-		tmp = tmp.NextNode
+		tmp.Next = &ListNode{Val: num}
+		tmp = tmp.Next
 	}
-	return &LinkedList{head.NextNode}
+	return head.Next
 }
 ```
